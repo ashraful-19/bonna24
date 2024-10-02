@@ -2,8 +2,8 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const { exec } = require('child_process');
-app.use(bodyParser.json());
 
+app.use(bodyParser.json());
 
 const PORT = 3005;
 
@@ -12,14 +12,13 @@ app.get('/', (req, res) => {
     res.send('Hello, World! bonna 25 updated bruuhh');
 });
 
-
 // Webhook route
-app.get('/web-hooks', (req, res) => {
+app.post('/web-hooks', (req, res) => {
     // Ensure the request is from GitHub
     const event = req.headers['x-github-event'];
 
     if (event === 'push') {
-        // Replace '/path/to/project' with the path to your project
+        // Execute the commands to update your application
         exec('cd /home/bonna25 && git pull && npm install && pm2 restart bonna25', (err, stdout, stderr) => {
             if (err) {
                 console.error(`Error: ${err.message}`);
@@ -36,7 +35,6 @@ app.get('/web-hooks', (req, res) => {
         res.status(400).send('Event not supported');
     }
 });
-
 
 // Start the server
 app.listen(PORT, () => {

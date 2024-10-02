@@ -14,7 +14,7 @@ app.get('/', (req, res) => {
 
 
 // Webhook route
-app.post('/web-hooks', (req, res) => {
+app.get('/web-hooks', (req, res) => {
     // Ensure the request is from GitHub
     const event = req.headers['x-github-event'];
 

@@ -12,26 +12,25 @@ app.get('/', (req, res) => {
     res.send('Hello, World! bonna 25 updated bruuhh updated');
 });
 
-// Webhook route
 app.post('/web-hooks', (req, res) => {
-    // Ensure the request is from GitHub
     const event = req.headers['x-github-event'];
+    console.log(`Received event: ${event}`);
 
     if (event === 'push') {
-        // Execute the commands to update your application
         exec('cd /home/bonna25 && git pull && npm install && pm2 restart bonna25', (err, stdout, stderr) => {
             if (err) {
-                console.error(`Error: ${err.message}`);
+                console.error(`Exec error: ${err.message}`);
                 return res.status(500).send('Server Error');
             }
             if (stderr) {
                 console.error(`Stderr: ${stderr}`);
                 return res.status(500).send('Server Error');
             }
-            console.log(`stdout: ${stdout}`);
+            console.log(`Stdout: ${stdout}`);
             res.status(200).send('Update successful');
         });
     } else {
+        console.log(`Unsupported event: ${event}`);
         res.status(400).send('Event not supported');
     }
 });

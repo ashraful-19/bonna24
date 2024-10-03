@@ -11,7 +11,7 @@ const PORT = 3005;
 // Define a route for the root URL
 app.get('/', (req, res) => {
     console.log("Received a request at the root URLddd");
-    res.send('Hello, World! bonna 25 2023 updated file');
+    res.send('Hello, World! bonna 25 2023 updated fildfe');
 });
 
 // Webhook route for handling GitHub events
@@ -20,7 +20,8 @@ app.post('/web-hooks', (req, res) => {
     console.log(`Received event: ${event}`);
 
     if (event === 'push') {
-        exec('cd /home/bonna25 && git pull && npm install && pm2 restart bonna25', (err, stdout, stderr) => {
+        // Modify the command to stash changes before pulling
+        exec('cd /home/bonna25 && git stash && git pull && npm install && pm2 restart bonna25', (err, stdout, stderr) => {
             if (err) {
                 console.error(`Exec error: ${err.message}`);
                 return res.status(500).send('Server Error');
@@ -37,6 +38,7 @@ app.post('/web-hooks', (req, res) => {
         res.status(400).send('Event not supported');
     }
 });
+
 
 // Start the server
 app.listen(PORT, () => {

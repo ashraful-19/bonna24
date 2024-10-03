@@ -11,7 +11,7 @@ const PORT = 3005;
 // Define a route for the root URL
 app.get('/', (req, res) => {
     console.log("Received a request at the root URLddd");
-    res.send('Hello, World! bonna 25 2023 updated fildfdfdfdfdde');
+    res.send('successfully updated the codes');
 });
 
 // Webhook route for handling GitHub events

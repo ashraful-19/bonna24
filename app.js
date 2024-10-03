@@ -9,7 +9,7 @@ const PORT = 3005;
 
 // Define a route for the root URL
 app.get('/', (req, res) => {
-    res.send('Hello, World! bonna 25 updated bruuhh');
+    res.send('Hello, World! bonna 25 updated bruuhh updated');
 });
 
 // Webhook route

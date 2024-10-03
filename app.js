@@ -3,16 +3,18 @@ const app = express();
 const bodyParser = require('body-parser');
 const { exec } = require('child_process');
 
+// Middleware to parse JSON bodies
 app.use(bodyParser.json());
 
 const PORT = 3005;
 
 // Define a route for the root URL
 app.get('/', (req, res) => {
-    console.log("I came to home to check")
-    res.send('Hello, World! bonna 25 2023');
+    console.log("Received a request at the root URLddd");
+    res.send('Hello, World! bonna 25 2023 updated file');
 });
 
+// Webhook route for handling GitHub events
 app.post('/web-hooks', (req, res) => {
     const event = req.headers['x-github-event'];
     console.log(`Received event: ${event}`);
